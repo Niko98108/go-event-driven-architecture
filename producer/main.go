@@ -5,15 +5,21 @@ import (
 	"fmt"
 	"log"
 	"time"
-"github.com/Niko98108/go-event-driven-architecture/constant"
+
 	"cloud.google.com/go/pubsub"
+)
+
+const (
+	projectID        = "cascade-masters"
+	topicID          = "dev-example-topic"
+	subscriptionName = "your-subscription-name"
 )
 
 
 func main() {
 	ctx := context.Background()
 
-	client, err := pubsub.NewClient(ctx, )
+	client, err := pubsub.NewClient(ctx, projectID)
 	if err != nil {
 		log.Fatalf("Failed to create Pub/Sub client: %v", err)
 	}

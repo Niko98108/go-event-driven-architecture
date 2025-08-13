@@ -4,16 +4,17 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"cloud.google.com/go/pubsub"
 )
 
+const (
+	projectID        = "cascade-masters"
+	subscriptionName = "dev-example-consumer-one-sub"
+)
+
 func main() {
 	ctx := context.Background()
-
-	projectID := os.Getenv("GOOGLE_CLOUD_PROJECT") // Must be set in env
-	subscriptionID := "demo-sub"
 
 	client, err := pubsub.NewClient(ctx, projectID)
 	if err != nil {
@@ -21,7 +22,7 @@ func main() {
 	}
 	defer client.Close()
 
-	sub := client.Subscription(subscriptionID)
+	sub := client.Subscription(subscriptionName)
 	sub.ReceiveSettings.Synchronous = false
 	sub.ReceiveSettings.MaxOutstandingMessages = 10
 
